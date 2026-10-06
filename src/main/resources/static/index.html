@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SGPA and CGPA calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>SGPA and CGPA calculator</h1>
+    <nav class="tabs" aria-label="Views">
+      <button type="button" class="tab is-active" data-view="calc" aria-current="page">Calculate</button>
+      <button type="button" class="tab" data-view="history">History</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-calc" class="layout">
+      <div class="sheet">
+        <div class="fields">
+          <label>Name
+            <input id="name" type="text" maxlength="100" autocomplete="name">
+          </label>
+          <label>Roll number
+            <input id="roll" type="text" maxlength="30" autocomplete="off">
+          </label>
+          <label>Semester
+            <select id="semester"></select>
+          </label>
+          <fieldset class="mode">
+            <legend>Enter</legend>
+            <label><input type="radio" name="mode" value="grades" checked> Grades</label>
+            <label><input type="radio" name="mode" value="marks"> Marks</label>
+          </fieldset>
+        </div>
+
+        <div class="ledger-head" aria-hidden="true">
+          <span>Course</span><span class="num">Credits</span><span id="entry-head">Grade</span>
+        </div>
+        <ul id="courses" class="ledger"></ul>
+
+        <div class="actions">
+          <button type="button" id="calculate" class="primary">Calculate and save</button>
+          <button type="button" id="reset" class="quiet">Reset</button>
+          <p id="status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <aside id="result" class="card" aria-live="polite">
+        <p class="empty">Pick a grade for each course, then calculate. Your SGPA and CGPA appear here and are saved to your history.</p>
+      </aside>
+    </section>
+
+    <section id="view-history" class="history" hidden>
+      <form id="history-filter" class="filter">
+        <label>Roll number
+          <input id="filter-roll" type="text" placeholder="Show everyone">
+        </label>
+        <button type="submit" class="primary">Filter</button>
+      </form>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>When</th><th>Name</th><th>Roll number</th><th class="num">Sem</th>
+                <th class="num">SGPA</th><th class="num">CGPA</th><th><span class="sr">Details</span></th></tr>
+          </thead>
+          <tbody id="history-body"></tbody>
+        </table>
+      </div>
+      <p id="history-empty" class="empty" hidden>No saved results yet. Calculate a semester and it will show up here.</p>
+    </section>
+  </main>
+
+  <dialog id="detail">
+    <div id="detail-body"></div>
+    <form method="dialog"><button class="quiet">Close</button></form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
